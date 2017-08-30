@@ -96,8 +96,9 @@ public class TileControl : MonoBehaviour {
 
 
         ChangeTileVisual();
-        
-        CheckTopNum(Util.GetTileNum(_tilename));
+		Debug.Log ("col name : " + Util.GetTileNum (_tilename));
+		GameObject.Find ("TopNum").GetComponent<TopNumControl> ().CheckColLineOfTopNum (Util.GetTileNum (_tilename));
+		//(FindObjectOfType (TopNumControl) as TopNumControl).CheckColLineOfTopNum (Util.GetTileNum (_tilename)); 
         /*
         CheckVerticalNum();
         CheckComplete();
@@ -127,36 +128,6 @@ public class TileControl : MonoBehaviour {
     }
 
 
-    void CheckTopNum(int tilenum)
-    {
-        Debug.Log("tile num " + tilenum.ToString());
-        int col = tilenum % GlobalValue.CurrentTileSide;
-        int topIndex = 0;
-        string TopNumName = "";
-
-        for(int i=0; i<GlobalValue.TOP_NUM_MAX; i++)
-        {
-            topIndex = col + GlobalValue.CurrentTileSide;
-            TopNumName = GlobalValue.TOP_NUM_PREFIX + topIndex.ToString(); 
-            //GameObject.Find(TopNumName).GetComponent<>
-        }
-        /*
-        int[] HorizontalNumList;
-        int[] TileCheckList;
-
-        HorizontalNumList = GetHorizontalNums();
-        TileCheckList = GetCheckedHorizontalTileList();
-
-        if (ArraysEqual<int>(HorizontalNumList, TileCheckList))
-        {
-            SetHorizontalNumColor(Color.red);
-        }
-        else
-        {
-            SetHorizontalNumColor(Color.black);
-        }
-        */
-    }
     // Use this for initialization
     void Start () {
 		

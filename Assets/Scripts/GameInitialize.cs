@@ -66,12 +66,13 @@ public class GameInitialize : MonoBehaviour {
 			}
         }
 		for (int i = 0; i < TopNums.Length; i++) {
-			GenerateNumTile(TopNums[i]).transform.SetParent (TopNum.transform, false);
+			GenerateNumTile(GlobalValue.TOP_NUM_PREFIX, TopNums[i]).transform.SetParent (TopNum.transform, false);
+
 		}
     }
 
 
-    private int[] GetColsTopNumList(int col)
+    public int[] GetColsTopNumList(int col)
     {
         int[] result = new int[GlobalValue.TOP_NUM_MAX];
         int resultIdx = GlobalValue.TOP_NUM_MAX - 1;
@@ -108,7 +109,7 @@ public class GameInitialize : MonoBehaviour {
 			}
         }
 		for (int i = 0; i < LeftNums.Length; i++) {
-			GenerateNumTile(LeftNums[i]).transform.SetParent (LeftNum.transform, false);
+			GenerateNumTile(GlobalValue.LEFT_NUM_PREFIX, LeftNums[i]).transform.SetParent (LeftNum.transform, false);
 		}
 	}
 
@@ -139,9 +140,9 @@ public class GameInitialize : MonoBehaviour {
 	}
 
 
-	GameObject GenerateNumTile(int num){
+	GameObject GenerateNumTile(string prefix, int num){
 		GameObject NumCell = new GameObject ();
-		NumCell.name = num.ToString ();
+		NumCell.name = prefix+num.ToString ();
 		Text NumCellText = NumCell.AddComponent<Text> ();
 		NumCellText.text = num==0?"":num.ToString();
 		NumCellText.color = Color.black;
