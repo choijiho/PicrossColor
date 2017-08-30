@@ -14,9 +14,13 @@ public class GlobalValue : MonoBehaviour {
 	public static ClickState ClickMode = ClickState.Check;
 
 
-	public static string CurrentData = "";
+	//public static string CurrentData = "";
 	public static string CurrentImgName = "";
+
+    // Set tile side from user request
+    public static int CurrentTileSide = 16; 
 	public static int CurrentPage=1;
+    public static Color[] CurrentData;
 
     // CROP coordinate X, Y
     public static int X;

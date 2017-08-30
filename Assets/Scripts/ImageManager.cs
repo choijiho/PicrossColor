@@ -75,9 +75,9 @@ public class ImageManager : MonoBehaviour {
 	}
 
 	void CheckComplete(){
-		string AnswerData = GlobalValue.CurrentData;
+		//string AnswerData = GlobalValue.CurrentData;
 		string UserData = GetUserCheckedData ();
-		Debug.Log(IsEqualsData(AnswerData, UserData));
+		//Debug.Log(IsEqualsData(AnswerData, UserData));
 	}
 
 	string GetUserCheckedData(){
@@ -349,12 +349,14 @@ public class ImageManager : MonoBehaviour {
 	}
 
 	public void HintCheck(){
-		string AnswerData = GlobalValue.CurrentData;
+		//string AnswerData = GlobalValue.CurrentData;
 		string UserData = GetUserCheckedData ();
+        /*
 		if(IsEqualsNotWhiteData(AnswerData, UserData)){
 			return;
 		}
 		List<int> AnswerNotWhiteList = new List<int> ();	
+
 
 		string TmpAsnwerData = "";
 		for (int i = 0; i < GlobalValue.TileCellCnt; i++) {
@@ -373,10 +375,12 @@ public class ImageManager : MonoBehaviour {
 				break;
 			}
 		}
+        */
 	}
 
 	public void Reset(){
-		for (int i = 0; i < GlobalValue.TileCellCnt; i++) {
+        Debug.Log("LENGTH : " + GlobalValue.CurrentData.Length.ToString());
+		for (int i = 0; i < GlobalValue.CurrentData.Length; i++) {
 			GameObject.Find (GlobalValue.TILE_PREFIX+i).GetComponent<Image> ().color = Color.white;
 			GameObject.Find (GlobalValue.TILE_PREFIX+i).GetComponent<Image> ().sprite = null;
 		}

@@ -8,7 +8,7 @@ public class GameListTile : MonoBehaviour {
 
 	public void MoveMain(){
 		GlobalValue.CurrentImgName = gameObject.name;
-		GlobalValue.CurrentData = GameObject.Find ("Canvas").GetComponent<GameListManager> ().GetItem (GlobalValue.CurrentImgName).data;
+		//GlobalValue.CurrentData = GameObject.Find ("Canvas").GetComponent<GameListManager> ().GetItem (GlobalValue.CurrentImgName).data;
 		SceneManager.LoadScene ("Main");
 	}
 

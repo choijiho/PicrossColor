@@ -113,7 +113,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>/Users/jiho/Desktop/Unity/PicrossColor_20170820/PicrossColor_20170815/PicrossColor/Assets/Plugins/LitJson.dll</HintPath>
+ <HintPath>/Users/jiho/Desktop/Unity/PicrossColor/Assets/Plugins/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
