@@ -20,7 +20,8 @@ public class GlobalValue : MonoBehaviour {
     // Set tile side from user request
     public static int CurrentTileSide = 16; 
 	public static int CurrentPage=1;
-    public static Color[] CurrentData;
+    public static Color[] CurrentOrgData;
+    public static Color[] CurrentUsrData;
 
     // CROP coordinate X, Y
     public static int X;

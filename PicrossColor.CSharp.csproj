@@ -86,11 +86,16 @@
     <Compile Include="Assets\Scripts\GameInitialize.cs" />
     <Compile Include="Assets\Scripts\GameListManager.cs" />
     <Compile Include="Assets\Scripts\GameListTile.cs" />
+    <Compile Include="Assets\Scripts\GameMainControl.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GlobalValue.cs" />
     <Compile Include="Assets\Scripts\ImageManager.cs" />
     <Compile Include="Assets\Scripts\initialize.cs" />
+    <Compile Include="Assets\Scripts\LeftNumControl.cs" />
     <Compile Include="Assets\Scripts\MenuControl.cs" />
+    <Compile Include="Assets\Scripts\TileControl.cs" />
+    <Compile Include="Assets\Scripts\TopNumControl.cs" />
+    <Compile Include="Assets\Scripts\Util.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

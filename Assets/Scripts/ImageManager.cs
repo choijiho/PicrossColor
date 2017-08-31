@@ -379,8 +379,8 @@ public class ImageManager : MonoBehaviour {
 	}
 
 	public void Reset(){
-        Debug.Log("LENGTH : " + GlobalValue.CurrentData.Length.ToString());
-		for (int i = 0; i < GlobalValue.CurrentData.Length; i++) {
+        Debug.Log("LENGTH : " + GlobalValue.CurrentOrgData.Length.ToString());
+		for (int i = 0; i < GlobalValue.CurrentOrgData.Length; i++) {
 			GameObject.Find (GlobalValue.TILE_PREFIX+i).GetComponent<Image> ().color = Color.white;
 			GameObject.Find (GlobalValue.TILE_PREFIX+i).GetComponent<Image> ().sprite = null;
 		}

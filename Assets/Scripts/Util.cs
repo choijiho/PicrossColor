@@ -9,6 +9,18 @@ public class Util : MonoBehaviour {
         TileName = TileName.Replace(GlobalValue.TILE_PREFIX, "");
         return int.Parse(TileName);
     }
+    
+    public static int MyIntToStr(string str)
+    {
+        bool isNum = false;
+        int result = 0;
+        isNum = int.TryParse(str, out result);
+        if (!isNum)
+        {
+            result = 0; 
+        }
+        return result;
+    }
 
 	// Use this for initialization
 	void Start () {

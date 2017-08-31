@@ -92,13 +92,14 @@ public class TileControl : MonoBehaviour {
                 ts = TILE_STATE.none;
             }
         }
-    
 
+        ChangeTileVisual(Util.GetTileNum(_tilename));
 
-        ChangeTileVisual();
-		Debug.Log ("col name : " + Util.GetTileNum (_tilename));
-		GameObject.Find ("TopNum").GetComponent<TopNumControl> ().CheckColLineOfTopNum (Util.GetTileNum (_tilename));
-		//(FindObjectOfType (TopNumControl) as TopNumControl).CheckColLineOfTopNum (Util.GetTileNum (_tilename)); 
+        int ColNum = Util.GetTileNum(_tilename) % GlobalValue.CurrentTileSide;
+        int RowNum = Util.GetTileNum(_tilename) / GlobalValue.CurrentTileSide;
+        
+		GameObject.Find ("TopNum").GetComponent<TopNumControl> ().CheckColLineOfTopNum (ColNum);
+		GameObject.Find ("LeftNum").GetComponent<LeftNumControl> ().CheckRowLineOfLeftNum (RowNum);
         /*
         CheckVerticalNum();
         CheckComplete();
@@ -106,7 +107,7 @@ public class TileControl : MonoBehaviour {
     }
 
 
-    void ChangeTileVisual()
+    void ChangeTileVisual(int idx)
     {
         Sprite SpriteX = Resources.Load<Sprite>("Images/x_icon");
         Debug.Log("TILE_STATE : " + ts.ToString());
@@ -115,14 +116,18 @@ public class TileControl : MonoBehaviour {
             case TILE_STATE.none:
                 img.sprite = null;
                 img.color = Color.white;
+                GlobalValue.CurrentUsrData[idx] = Color.white;
                 break;
             case TILE_STATE.check:
                 img.sprite = null;
                 img.color = Color.black;
+                GlobalValue.CurrentUsrData[idx] = Color.black;
+                Debug.Log("idx : " + idx);
                 break;
             case TILE_STATE.x:
                 img.sprite = SpriteX;
                 img.color = Color.black;
+                GlobalValue.CurrentUsrData[idx] = Color.red;
                 break;
         }
     }

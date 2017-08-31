@@ -13,10 +13,23 @@ public class GameMainControl : MonoBehaviour {
     public void Reset()
     {
         Debug.Log("RESET");
-        for (int i = 0; i < GlobalValue.CurrentData.Length; i++)
+        for (int i = 0; i < GlobalValue.CurrentOrgData.Length; i++)
         {
             GameObject.Find(GlobalValue.TILE_PREFIX + i).GetComponent<Image>().color = Color.white;
             GameObject.Find(GlobalValue.TILE_PREFIX + i).GetComponent<Image>().sprite = null;
+            GlobalValue.CurrentUsrData[i] = Color.white;
+        }
+        NumsReset("TopNum");
+        NumsReset("LeftNum");
+    }
+
+
+    private void NumsReset(string ComponentName)
+    {
+        Text[] Nums = GameObject.Find(ComponentName).GetComponentsInChildren<Text>();
+        for(int i=0; i<Nums.Length; i++)
+        {
+            Nums[i].color = Color.black;
         }
     }
 

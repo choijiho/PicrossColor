@@ -13,7 +13,8 @@ public class GameInitialize : MonoBehaviour {
     void Awake()
     {
         TILE_SIDE = GlobalValue.CurrentTileSide;
-        GlobalValue.CurrentData = new Color[TILE_SIDE*TILE_SIDE];
+        GlobalValue.CurrentOrgData = new Color[TILE_SIDE*TILE_SIDE];
+        GlobalValue.CurrentUsrData = new Color[TILE_SIDE*TILE_SIDE];
 	    TopNums = new int[TILE_SIDE * GlobalValue.TOP_NUM_MAX];
 	    LeftNums = new int[TILE_SIDE * GlobalValue.LEFT_NUM_MAX];
 
@@ -39,7 +40,9 @@ public class GameInitialize : MonoBehaviour {
                 GameObject NewObj = new GameObject(); //Create the GameObject
 				NewObj.name = GlobalValue.TILE_PREFIX+idx.ToString();
                 //NewObj.name = x + ", " + y;
-                GlobalValue.CurrentData[idx++] = make.GetPixel(x, y);
+                GlobalValue.CurrentOrgData[idx] = make.GetPixel(x, y);
+                GlobalValue.CurrentUsrData[idx] = GlobalValue.CurrentOrgData[idx];
+                idx++;
 				Button GridTile = NewObj.AddComponent<Button>();
 				Image GridTileImg = NewObj.AddComponent<Image> ();
                 TileControl TileControl = NewObj.AddComponent<TileControl>();
@@ -57,22 +60,24 @@ public class GameInitialize : MonoBehaviour {
     void SetTopNum()
     {
 		GameObject TopNum = GameObject.Find ("TopNum");
-		int[] result = new int[GlobalValue.TOP_NUM_MAX];	
+		int[] result = new int[GlobalValue.TOP_NUM_MAX];
+
         for (int colIdx = 0; colIdx < TILE_SIDE; colIdx++)
         {
-			result = GetColsTopNumList (colIdx);
+			result = GetColsTopNumList (GlobalValue.CurrentOrgData, colIdx);
 			for (int i = 0; i < result.Length; i++) {
 				TopNums [(i * TILE_SIDE) + colIdx] = result [i];
+//                GenerateNumTile(GlobalValue.TOP_NUM_PREFIX, TopNums[result.Length*colIdx + i]).transform.SetParent(TopNum.transform, false);
 			}
         }
 		for (int i = 0; i < TopNums.Length; i++) {
-			GenerateNumTile(GlobalValue.TOP_NUM_PREFIX, TopNums[i]).transform.SetParent (TopNum.transform, false);
+			GenerateNumTile(GlobalValue.TOP_NUM_PREFIX, i, TopNums[i]).transform.SetParent (TopNum.transform, false);
 
 		}
     }
 
 
-    public int[] GetColsTopNumList(int col)
+    public int[] GetColsTopNumList(Color[] src, int col)
     {
         int[] result = new int[GlobalValue.TOP_NUM_MAX];
         int resultIdx = GlobalValue.TOP_NUM_MAX - 1;
@@ -80,7 +85,8 @@ public class GameInitialize : MonoBehaviour {
 
 		for(int rowIdx=TILE_SIDE-1; rowIdx>=0; rowIdx--)
         {
-            if (GlobalValue.CurrentData[rowIdx * TILE_SIDE + col].Equals(Color.white)){
+            Debug.Log("src[" + rowIdx + "] : " + src[rowIdx].ToString());
+            if (src[rowIdx * TILE_SIDE + col].Equals(Color.white)){
                 if (repeatNum != 0)
                 {
                     result[resultIdx--] = repeatNum;
@@ -103,24 +109,24 @@ public class GameInitialize : MonoBehaviour {
 		int[] result = new int[GlobalValue.LEFT_NUM_MAX];	
 		for (int rowIdx = 0; rowIdx < TILE_SIDE; rowIdx++)
         {
-			result = GetRowsLeftNumList(rowIdx);
+			result = GetRowsLeftNumList(GlobalValue.CurrentOrgData, rowIdx);
 			for (int i = 0; i < result.Length; i++) {
 				LeftNums[rowIdx*GlobalValue.LEFT_NUM_MAX+i] = result [i];
 			}
         }
 		for (int i = 0; i < LeftNums.Length; i++) {
-			GenerateNumTile(GlobalValue.LEFT_NUM_PREFIX, LeftNums[i]).transform.SetParent (LeftNum.transform, false);
+			GenerateNumTile(GlobalValue.LEFT_NUM_PREFIX, i, LeftNums[i]).transform.SetParent (LeftNum.transform, false);
 		}
 	}
 
-	int[] GetRowsLeftNumList(int row){
+	public int[] GetRowsLeftNumList(Color[] src, int row){
         int[] result = new int[GlobalValue.LEFT_NUM_MAX];
         int resultIdx = GlobalValue.LEFT_NUM_MAX - 1;
         int repeatNum = 0;
 
 		for(int colIdx=TILE_SIDE-1; colIdx>=0; colIdx--)
         {
-			if (GlobalValue.CurrentData[row * TILE_SIDE + colIdx].Equals(Color.white)){
+			if (src[row * TILE_SIDE + colIdx].Equals(Color.white)){
                 if (repeatNum != 0)
                 {
                     result[resultIdx--] = repeatNum;
@@ -140,9 +146,9 @@ public class GameInitialize : MonoBehaviour {
 	}
 
 
-	GameObject GenerateNumTile(string prefix, int num){
+	GameObject GenerateNumTile(string prefix, int idx, int num){
 		GameObject NumCell = new GameObject ();
-		NumCell.name = prefix+num.ToString ();
+		NumCell.name = prefix+idx.ToString ();
 		Text NumCellText = NumCell.AddComponent<Text> ();
 		NumCellText.text = num==0?"":num.ToString();
 		NumCellText.color = Color.black;
