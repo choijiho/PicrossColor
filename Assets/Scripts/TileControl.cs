@@ -107,7 +107,7 @@ public class TileControl : MonoBehaviour {
     }
 
 
-    void ChangeTileVisual(int idx)
+    public void ChangeTileVisual(int idx)
     {
         Sprite SpriteX = Resources.Load<Sprite>("Images/x_icon");
         Debug.Log("TILE_STATE : " + ts.ToString());

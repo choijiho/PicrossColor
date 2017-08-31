@@ -39,9 +39,9 @@ public class GlobalValue : MonoBehaviour {
 	public const int RGB_LENGTH = 7;
 
 	// TOP number row count 
-	public const int TOP_NUM_MAX = 5;
+	public const int TOP_NUM_MAX = 6;
 	// LEFT number col count 
-	public const int LEFT_NUM_MAX = 5;
+	public const int LEFT_NUM_MAX = 6;
 
 	// RGB CODE
 	public const string WHITE = "#ffffff";

@@ -33,39 +33,59 @@ public class GameMainControl : MonoBehaviour {
         }
     }
 
-    public void Hint()
+    public void SetClickModeToX()
     {
-        //string AnswerData = GlobalValue.CurrentData;
-        //string UserData = GetUserCheckedData();
-        /*
-		if(IsEqualsNotWhiteData(AnswerData, UserData)){
-			return;
-		}
-		List<int> AnswerNotWhiteList = new List<int> ();	
-
-
-		string TmpAsnwerData = "";
-		for (int i = 0; i < GlobalValue.TileCellCnt; i++) {
-			TmpAsnwerData = AnswerData.Substring (i * GlobalValue.RGB_LENGTH, GlobalValue.RGB_LENGTH);
-			if (!TmpAsnwerData.Equals (GlobalValue.WHITE)) {
-				AnswerNotWhiteList.Add (i);
-			}	
-		}
-		Debug.Log ("AnswerNotWhiteList length : " + AnswerNotWhiteList.Count);
-		int findIdx = 0;
-		while(true){
-			findIdx = Random.Range (0, AnswerNotWhiteList.Count);
-			Debug.Log ("idx value : " + AnswerNotWhiteList [findIdx]);
-			if (UserData.Substring (AnswerNotWhiteList[findIdx] * 7, 7).Equals (GlobalValue.WHITE)) {
-				GameObject.Find (GlobalValue.TILE_PREFIX + AnswerNotWhiteList[findIdx]).GetComponent<Image> ().color = Color.black;
-				break;
-			}
-		}
-        */
+        GlobalValue.ClickMode = GlobalValue.ClickState.X;
     }
 
-        // Use this for initialization
-        void Start () {
+    public void SetClickModeTocheck()
+    {
+        GlobalValue.ClickMode = GlobalValue.ClickState.Check;
+
+    }
+
+    public void Hint()
+    {
+		List<int> HintTargetList = new List<int> ();	
+
+        for(int i=0; i<GlobalValue.CurrentOrgData.Length; i++)
+        {
+            if(GlobalValue.CurrentOrgData[i] != Color.white && 
+                GlobalValue.CurrentUsrData[i] != Color.black)
+            {
+                HintTargetList.Add(i);
+            }
+        }
+		int findIdx = Random.Range (0, HintTargetList.Count);
+        GameObject.Find(GlobalValue.TILE_PREFIX + HintTargetList[findIdx]).GetComponent<TileControl>().TileClicked();
+    }
+
+    public void AnswerCheck()
+    {
+        Reset();
+        for(int i=0; i<GlobalValue.CurrentOrgData.Length; i++)
+        {
+            if(GlobalValue.CurrentOrgData[i] != Color.white)
+            {
+                GameObject.Find(GlobalValue.TILE_PREFIX + i).GetComponent<Image>().color = Color.black;
+            }
+        }
+    } 
+
+    public void AnswerCheckColor()
+    {
+        Reset();
+        for(int i=0; i<GlobalValue.CurrentOrgData.Length; i++)
+        {
+            if(GlobalValue.CurrentOrgData[i] != Color.white)
+            {
+                GameObject.Find(GlobalValue.TILE_PREFIX + i).GetComponent<Image>().color = GlobalValue.CurrentOrgData[i];
+            }
+        }
+    } 
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

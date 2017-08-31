@@ -85,7 +85,6 @@ public class GameInitialize : MonoBehaviour {
 
 		for(int rowIdx=TILE_SIDE-1; rowIdx>=0; rowIdx--)
         {
-            Debug.Log("src[" + rowIdx + "] : " + src[rowIdx].ToString());
             if (src[rowIdx * TILE_SIDE + col].Equals(Color.white)){
                 if (repeatNum != 0)
                 {

@@ -48,22 +48,29 @@ public class GameListManager : MonoBehaviour {
 		string fileName = string.Format ("data/16_{0:D2}", GlobalValue.CurrentPage);
 		Debug.Log ("Filename : " + fileName);
 		Texture2D img = (Texture2D)Resources.Load (fileName);
+        Sprite imgSprite = Resources.Load(fileName, typeof(Sprite)) as Sprite;
+
+        GameObject.Find("GridContainer").GetComponent<Image>().sprite = imgSprite;
 
 		for (int y = img.height-TILE_SIDE; y >= 0; y -= TILE_SIDE) {
 			for (int x = 0; x < img.width; x += TILE_SIDE) {
 				Texture2D make = new Texture2D (TILE_SIDE, TILE_SIDE);
-				make.SetPixels (img.GetPixels (x, y, TILE_SIDE, TILE_SIDE));
+				//make.SetPixels (img.GetPixels (x, y, TILE_SIDE, TILE_SIDE));
+
+
+                for(int xi=0; xi<TILE_SIDE; xi++)
+                {
+                    for(int yi=0; yi<TILE_SIDE; yi++)
+                    {
+                        //make.SetPixel(xi, yi, img.GetPixel(x+xi, y+yi));
+                        make.SetPixel(xi, yi, Color.clear);
+                    }
+                }
 				make.Apply ();
 				GameObject NewObj = new GameObject (); //Create the GameObject
 				Image GridImg = NewObj.AddComponent<Image> (); //A
                 Button GridBt = NewObj.AddComponent<Button>();
-//                EventTrigger et = NewObj.AddComponent<EventTrigger>();
-
-//                NewObj.ev   
-//                et.OnPointerClick.
-				//GridImg.name = x+", "+y;
 				GridBt.name = x+", "+y;
-                //Debug.Log("NAME : " + GridBt.name);
                  
                 // TODO
                 // if tilecomplete ? y or n 
